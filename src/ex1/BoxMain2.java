@@ -18,5 +18,5 @@ public class BoxMain2 {
         // 잘못된 타입의 인수 전달시
         integerBox.set("문자100");
         Integer result = (Integer) integerBox.get(); // string -> integer 캐스팅 예외
-    }
+        System.out.println("result = " + result);    }
 }
