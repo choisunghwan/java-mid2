@@ -1,25 +1,25 @@
-package collection;
+package collection.array;
 
 import java.util.Arrays;
 
-public class MyArrayListV3 {
+public class MyArrayListV4<E> {
     private static final int DEFAULT_CAPACITY = 5;
 
     private Object[] elementDate;
     private int size = 0;
 
-    public MyArrayListV3(){
+    public MyArrayListV4(){
         elementDate = new Object[DEFAULT_CAPACITY];
     }
 
-    public MyArrayListV3(int initialCapacity) {
+    public MyArrayListV4(int initialCapacity) {
         elementDate = new Object[initialCapacity];
     }
     public int size() {
         return size;
     }
 
-    public void add(Object e) {
+    public void add(E e) {
         if (size == elementDate.length) {
             grow();
         }
@@ -47,8 +47,8 @@ public class MyArrayListV3 {
     }
 
     //코드 추가
-    public Object remove(int index) {
-        Object oldValue = get(index);
+    public E remove(int index) {
+        E oldValue = get(index);
         //데이터 이동
         shiftLeftFrom(index);
 
@@ -81,12 +81,13 @@ public class MyArrayListV3 {
     }
 
 
-    public Object get(int index) {
-        return elementDate[index];
+    @SuppressWarnings("unchecked")
+    public E get(int index) {
+        return (E) elementDate[index];
     }
 
-    public Object set(int index, Object element) {
-        Object oldValue = get(index);
+    public E set(int index, Object element) {
+        E oldValue = get(index);
         elementDate[index] = element;
         return oldValue;
     }

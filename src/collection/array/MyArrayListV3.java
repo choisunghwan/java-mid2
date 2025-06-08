@@ -1,18 +1,18 @@
-package collection;
+package collection.array;
 
 import java.util.Arrays;
 
-public class MyArrayListV2 {
+public class MyArrayListV3 {
     private static final int DEFAULT_CAPACITY = 5;
 
     private Object[] elementDate;
     private int size = 0;
 
-    public MyArrayListV2(){
+    public MyArrayListV3(){
         elementDate = new Object[DEFAULT_CAPACITY];
     }
 
-    public MyArrayListV2(int initialCapacity) {
+    public MyArrayListV3(int initialCapacity) {
         elementDate = new Object[initialCapacity];
     }
     public int size() {
@@ -20,7 +20,6 @@ public class MyArrayListV2 {
     }
 
     public void add(Object e) {
-        //코드 추가
         if (size == elementDate.length) {
             grow();
         }
@@ -28,7 +27,44 @@ public class MyArrayListV2 {
         size++;
     }
 
+    // 코드 추가
+    public void add(int index, Object e) {
+        if (size == elementDate.length) {
+            grow();
+        }
+
+        //데이터 이동
+        shiftRightFrom(index);
+        elementDate[index] = e;
+        size++;
+    }
+
+    // 코드 추가, 요소의 마지막부터 index까지 오른쪽으로 밀기
+    private void shiftRightFrom(int index) {
+        for (int i = size; i > index; i--) {
+            elementDate[i] = elementDate[i - 1];
+        }
+    }
+
     //코드 추가
+    public Object remove(int index) {
+        Object oldValue = get(index);
+        //데이터 이동
+        shiftLeftFrom(index);
+
+        size--;
+        elementDate[size] = null;
+        return oldValue;
+
+    }
+
+    //코드 추가 요소의 index 부터 마지막 까지 왼쪽으로 밀기
+    private void shiftLeftFrom(int index) {
+        for (int i = index; i < size - 1; i++) {
+            elementDate[i] = elementDate[i + 1];
+        }
+    }
+
     private void grow() {
         int oldCapacity = elementDate.length;
         int newCapacity = oldCapacity * 2;
